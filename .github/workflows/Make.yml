@@ -1,4 +1,4 @@
-name: Make Recovery
+name: Make Boot
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ on:
       DEVICE_URL:
         description: 'DEVICE_URL'
         required: true
-        default: 'https://github.com/azwhikaru/twrp_device_xiaomi_archytas'
+        default: 'https://github.com/azwhikaru/twrp_device_xiaomi_nabu'
       DEVICE_BRANCH:
         description: 'DEVICE_BRANCH'
         required: true
@@ -97,7 +97,7 @@ jobs:
         source build/envsetup.sh
         lunch ${{ github.event.inputs.LIBRARY_NAME }}_${{ github.event.inputs.DEVICE_NAME }}-eng 
         make clean
-        make recoveryimage -j$(nproc --all)        
+        make bootimage -j$(nproc --all)        
     
     - name: Compressed file
       run: |
@@ -112,6 +112,6 @@ jobs:
         files: workspace/${{ github.event.inputs.DEVICE_NAME }}-Built.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}
         tag_name: ${{ github.run_id }}
-        body: Recovery for ${{ github.event.inputs.DEVICE_NAME }}
+        body: Boot for ${{ github.event.inputs.DEVICE_NAME }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
