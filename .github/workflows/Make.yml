@@ -19,6 +19,7 @@ on:
         description: 'DEVICE_URL'
         required: true
         default: 'https://github.com/sam9306/shrp_device_xiaomi_nabu
+      DEVICE_BRANCH: 
         description: 'DEVICE_BRANCH'
         required: true
         default: 'twrp-12.1'
@@ -96,7 +97,7 @@ jobs:
         source build/envsetup.sh
         lunch ${{ github.event.inputs.LIBRARY_NAME }}_${{ github.event.inputs.DEVICE_NAME }}-eng 
         make clean
-        make bootimage -j$(nproc --all)        
+        adbd bootimage -j$(nproc --all)        
     
     - name: Compressed file
       run: |
